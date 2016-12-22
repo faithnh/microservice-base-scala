@@ -1,0 +1,15 @@
+#!/bin/bash
+
+project_dir=$(git rev-parse --show-toplevel)
+scalafmt=$project_dir/scalafmt/scalafmt.jar
+fmtconf=$project_dir/.scalafmt
+
+files=$(git diff --cached --name-only --diff-filter=ACM | grep '.scala$')
+[ -z "$files" ] && exit 0
+
+for fn in $files; do
+	java -Dfile.encoding=UTF-8 -jar $scalafmt -c $fmtconf -i -f $fn
+	git add $fn
+done
+
+exit 0

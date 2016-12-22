@@ -1,0 +1,11 @@
+version: '2'
+services:
+  db:
+    build: mysql/eventapi/
+    environment:
+      MYSQL_DATABASE: eventapi
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
